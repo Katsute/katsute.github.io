@@ -1,0 +1,18 @@
+---
+layout: compress
+---
+{% assign mod = site.time | date: "%Y-%m-%d" %}
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9">
+    {% for page in site.pages %}
+        {% assign head = page.path | split: '/' %}
+        {% if head[0] != "dependencies" and head[0] != "404.html" and head[0] != "sitemap.xml" and head[0] != "robots.txt" and head[0] != "favicon.ico" %}
+            <url>
+                <loc>{{ site.url }}{{ page.path | remove: "index.html" | remove: ".html" }}</loc>
+                <lastmod>{{ mod }}</lastmod>
+                <changefreq>monthly</changefreq>
+                <priority>0.5</priority>
+            </url>
+        {% endif %}
+    {% endfor %}
+</urlset>

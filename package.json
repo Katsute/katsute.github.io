@@ -1,0 +1,55 @@
+{
+    "name": "katsute.github.io",
+    "version": "1.0.0",
+    "description": "",
+    "main": "",
+    "private": true,
+    "scripts": {
+        "// -- dev -- //": "",
+        "clean": "rimraf dependencies/node & rimraf _site & rimraf .jekyll-cache & rimraf dist & rimraf build*",
+        "prune": "npm prune && npm i --package-lock --ignore-scripts",
+        "update": "npm update && npm i --package-lock --ignore-scripts && npm run prune",
+        "// -- build -- //": "",
+        "build:deps:bootstrap:js": "copyfiles \"node_modules/bootstrap/dist/js/bootstrap.min.js?(.map)\" dependencies/node/bootstrap/js -f",
+        "build:deps:bootstrap:scss": "copyfiles \"node_modules/bootstrap/scss/**/*\" dependencies/node/bootstrap/scss -u 3",
+        "build:deps:bootstrap": "npm run build:deps:bootstrap:js & npm run build:deps:bootstrap:scss",
+        "build:deps:fontawesome:css": "copyfiles \"node_modules/@fortawesome/fontawesome-free/css/all.min.css\" dependencies/node/fontawesome/css -f",
+        "build:deps:fontawesome:js": "copyfiles \"node_modules/@fortawesome/fontawesome-free/js/all.min.js\" dependencies/node/fontawesome/js -f",
+        "build:deps:fontawesome:webfonts": "copyfiles \"node_modules/@fortawesome/fontawesome-free/webfonts/*\" dependencies/node/fontawesome/webfonts -f",
+        "build:deps:fontawesome": "npm run build:deps:fontawesome:css & npm run build:deps:fontawesome:js & npm run build:deps:fontawesome:webfonts",
+        "build:deps:lunr": "copyfiles \"node_modules/lunr/lunr.min.js\" dependencies/node/lunr/js -f",
+        "build:deps:sanitize": "copyfiles \"node_modules/sanitize.css/sanitize.css\" dependencies/node/sanitize.css/css -f",
+        "build:data:ncc": "ncc build build/index.js -o dist -m -C -s",
+        "build:data:ts": "tsc src/index.ts --outDir build --alwaysStrict --target ES2020 --sourceMap",
+        "build:data": "npm run build:data:ts && npm run build:data:ncc",
+        "build": "npm run build:deps:bootstrap & npm run build:deps:fontawesome & npm run build:deps:lunr & npm run build:deps:sanitize & npm run build:data",
+        "prepare": "npm run clean && npm run build",
+        "// -- start -- //": "",
+        "start": "echo \"Error: no start script specified\" && exit 1",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Katsute/katsute.github.io.git"
+    },
+    "author": "Katsute",
+    "license": "GPL-2.0",
+    "bugs": {
+        "url": "https://github.com/Katsute/katsute.github.io/issues"
+    },
+    "homepage": "https://github.com/Katsute/katsute.github.io#readme",
+    "devDependencies": {
+        "@actions/core": "^1.4.0",
+        "@actions/github": "^5.0.0",
+        "@fortawesome/fontawesome-free": "^5.15.3",
+        "@types/node": "^15.12.5",
+        "@vercel/ncc": "^0.28.6",
+        "bootstrap": "^5.0.2",
+        "copyfiles": "^2.4.1",
+        "lunr": "^2.3.9",
+        "rimraf": "^3.0.2",
+        "sanitize.css": "^12.0.1",
+        "typescript": "^4.3.4"
+    },
+    "dependencies": {}
+}

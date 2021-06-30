@@ -1,0 +1,27 @@
+name: Dependencies
+on: [workflow_dispatch]
+jobs:
+  deps:
+    name: Update Dependencies
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📦 Prepate Git Repo
+        uses: actions/checkout@v2
+
+      - name: 📦 Install npm
+        uses: actions/setup-node@v2.1.5
+        with:
+          node-version: 14
+          architecture: x64
+
+      - name: 📚 Update dependencies
+        run: |
+          npm i
+          npm run build
+      - name: 💾 Push to Git Repo
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add -f "dependencies/node"
+          git diff-index --quiet HEAD || git commit -m 'Update dependencies'
+          git push

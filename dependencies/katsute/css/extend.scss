@@ -1,0 +1,33 @@
+---
+---
+
+@import "bootstrap"; // include bootstrap
+
+.e\+ {
+
+    &nav {
+        li a {
+            @extend .nav-link, .px-2, .text-white;
+        }
+    }
+
+    &feature{
+
+        @extend .d-flex;
+
+        div {
+            @extend .col-12, .col-sm-6;
+        }
+
+        // invert alt container
+        &:nth-child(even) {
+
+            div ~ div {
+                @extend .order-first;
+            }
+
+        }
+
+    }
+
+}
